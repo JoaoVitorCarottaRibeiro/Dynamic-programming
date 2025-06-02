@@ -11,7 +11,7 @@ Projeto de Dynamic Programming - Global Solution
 Em nosso projeto fizemos uma aplicação para monitorar e informar o cliente e as autoridades da melhor maneira sobre as queimadas em regiões e estados do Brasil.
 Como solução para reduzir as queimadas, nossa aplicação é projetada para que autoridades consigam saber onde o foco das queimadas estão, o usuário terá como informar as autoridades de novas ocorrências de queimadas, ajudando assim a alertar e acabar com o fogo o quanto antes.
 
-Importante ressaltar que o foco da aplicação não cabe apenas as autoridades, mas sim a população como um todo!
+Importante ressaltar que o foco da aplicação não cabe apenas as autoridades, mas sim a população como um todo! Qualquer cidadão poderá ter acesso e saber onde as queimadas estão acontecendo e se quiserem relatar uma nova ocorrência, poderão a vontade.
 
 Nela temos algumas funcionalidades como:
 
