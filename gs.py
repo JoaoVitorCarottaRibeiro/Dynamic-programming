@@ -1,7 +1,7 @@
 # Global Solution - Dynamic Programming 
 
 from fpdf import FPDF
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as pl  
 import os
 
 # Criação de uma lista de dicionários denominada de queimadas tendo alguns atributos em seus dicionários, sendo eles: estado, casos, impacto e região, que serão utilizados para determinadas funcionalidades da aplicação. 
