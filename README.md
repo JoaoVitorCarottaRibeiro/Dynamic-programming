@@ -20,6 +20,7 @@ Nela temos algumas funcionalidades como:
 3. Inserir novo registro de queimada
 4. Atender ocorrência de queimada com maior prioridade
 5. Gerar um relatório em pdf com os números e gráfico
-6. Sair da aplicação
+6. Denunciar ocorrência falsa
+7. Sair da aplicação
 
 A aplicação atende os requisitos de análise de algoritomos O(n) e O(n²) com selection sort, busca binária das informações e o uso de dicionários, além de ser muito interativo com o usuário.
