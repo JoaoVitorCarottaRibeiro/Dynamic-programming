@@ -1,19 +1,23 @@
-# Global Solution - Dynamic Programming 
+# Global Solution - Dynamic Programming
+
+# João Vitor Carotta Ribeiro - RM 555187
+# Arthur Bueno de Oliveira - RM 558396
+# Victor Magdaleno Marcos - RM 556729
 
 from fpdf import FPDF
-import matplotlib.pyplot as pl  
+import matplotlib.pyplot as plt  
 import os
 
 # Criação de uma lista de dicionários denominada de queimadas tendo alguns atributos em seus dicionários, sendo eles: estado, casos, impacto e região, que serão utilizados para determinadas funcionalidades da aplicação. 
 queimadas = [
-    {"estado": "Acre", "casos": 120, "impacto": "Alto", "regiao": "Norte"},
-    {"estado": "Amazonas", "casos": 300, "impacto": "Muito Alto", "regiao": "Norte"},
-    {"estado": "Bahia", "casos": 90, "impacto": "Médio", "regiao": "Nordeste"},
-    {"estado": "Goiás", "casos": 45, "impacto": "Baixo", "regiao": "Centro-Oeste"},
-    {"estado": "Mato Grosso", "casos": 410, "impacto": "Crítico", "regiao": "Centro-Oeste"},
-    {"estado": "Pará", "casos": 250, "impacto": "Muito Alto", "regiao": "Norte"},
-    {"estado": "Rondônia", "casos": 150, "impacto": "Alto", "regiao": "Norte"},
-    {"estado": "Tocantins", "casos": 75, "impacto": "Médio", "regiao": "Norte"}
+    {"estado": "Acre", "casos": 120, "impacto": "Alto", "regiao": "Norte", "Id": 1},
+    {"estado": "Amazonas", "casos": 300, "impacto": "Muito Alto", "regiao": "Norte", "Id": 2},
+    {"estado": "Bahia", "casos": 90, "impacto": "Médio", "regiao": "Nordeste", "Id": 3},
+    {"estado": "Goiás", "casos": 45, "impacto": "Baixo", "regiao": "Centro-Oeste", "Id": 4},
+    {"estado": "Mato Grosso", "casos": 410, "impacto": "Crítico", "regiao": "Centro-Oeste", "Id": 5},
+    {"estado": "Pará", "casos": 250, "impacto": "Muito Alto", "regiao": "Norte", "Id": 6},
+    {"estado": "Rondônia", "casos": 150, "impacto": "Alto", "regiao": "Norte", "Id": 7},
+    {"estado": "Tocantins", "casos": 75, "impacto": "Médio", "regiao": "Norte", "Id": 8}
 ]
 
 # Criação de um outro dicionário para saber a prioridade de cada caso em cada estado, podendo ter até 5 valores, sendo eles: Crítico, muito alto, alto, médio e baixo.
@@ -38,13 +42,14 @@ def mostrar_menu():
     print("3. Inserir novo registro de queimada")
     print("4. Atender próxima ocorrência com maior prioridade")
     print("5. Gerar relatório de atendimento por região (PDF)")
-    print("6. Sair")
+    print("6. Denunciar ocorrência falsa")
+    print("7. Sair")
 
 # Função que exibe todos os estados com base em um for, pegando todas as informações sobre todos os estados presentes na lista de dicionários denominada de queimadas.
 def exibir_estados():
     print("\n--- Estados e Queimadas ---")
     for item in queimadas:
-        print(f"{item['estado']} | Casos: {item['casos']} | Impacto: {item['impacto']} | Região: {item['regiao']}")
+        print(f"{item['estado']} | Casos: {item['casos']} | Impacto: {item['impacto']} | Região: {item['regiao']} | Id: {item['Id']}")
 
 # Função que faz a busca binária dos estados a serem procurados. Primeiramente definimos o início equivalente a 0 e o fim sendo o último elemento da lista. Depois, atribuimos um loop com o while dizendo que enquanto houver elementos para verificar, o loop vai estar funcionando. Após isso, calculamos o índice do elemento central, pois a busca binária sempre analisa o meio do intervalo atual, colocamos ele como o estado atual e depois fazemos uma verificação com if para achar o estado procurado. Caso ele encontre ele vai retornar o estado com o dicionário correspondente, se o estado procurado vier antes do estado atual em ordem alfabética, atualiza o fim da busca para a metade anterior, senão ele atualiza o início da musca para a metade posterior. Por fim, se o loop terminar sem encontrar nenhum estado, ele não retorna nada, indicando que o estado não está presente na lista.
 def busca_binaria(estado_procurado):
@@ -74,6 +79,7 @@ def buscar_estado():
         print(f"Casos de queimadas: {resultado['casos']}")
         print(f"Nível de impacto: {resultado['impacto']}")
         print(f"Região: {resultado['regiao']}")
+        print(f"Id: {resultado['Id']}")
     else:
         print("Estado não encontrado.")
 
@@ -81,6 +87,7 @@ def buscar_estado():
 def inserir_ocorrencia():
     estado = input("Estado: ")
     casos = int(input("Número de casos: "))
+    id = int(input("Número do id: "))
 
     impactos_validos = ["Baixo", "Médio", "Alto", "Muito Alto", "Crítico"]
     regioes_validas = ["Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"]
@@ -101,7 +108,8 @@ def inserir_ocorrencia():
         "estado": estado,
         "casos": casos,
         "impacto": impacto,
-        "regiao": regiao
+        "regiao": regiao,
+        "Id": id
     })
     print("Ocorrência registrada")
 
@@ -115,7 +123,22 @@ def atender_maior_prioridade():
     ocorrencia_prioritaria = max(queimadas, key=lambda x: prioridade.get(x["impacto"], 0))
     queimadas.remove(ocorrencia_prioritaria)
     print("\nOcorrência atendida:")
-    print(f"{ocorrencia_prioritaria['estado']} | Casos: {ocorrencia_prioritaria['casos']} | Impacto: {ocorrencia_prioritaria['impacto']}")
+    print(f"{ocorrencia_prioritaria['estado']} | Casos: {ocorrencia_prioritaria['casos']} | Impacto: {ocorrencia_prioritaria['impacto']} | Id: {ocorrencia_prioritaria['id']}")
+
+# Função que permite os usuários denunciarem ocorrências falsas, onde pegamos a ocorrência pelo seu respectivo Id e verificamos se ela realmente existe. Se ela existir e for considerada falsa ou enganosa, podemos utilizar essa função para denunciar e excluir.
+def denunciar_ocorrencia():
+    try:
+        denuncia = int(input("Digite o Id da ocorrência a ser denunciada: "))
+    except ValueError:
+        print("Id inválido")
+        return
+
+    for ocorrencia in queimadas:
+        if ocorrencia["Id"] == denuncia:
+            queimadas.remove(ocorrencia)
+            print(f"Ocorrência com Id de {denuncia} foi denunciada e removida com sucesso")
+            return
+    print(f"Nenhuma ocorrência foi encontrada com o Id {denuncia}")
 
 #Função que gera um relatório em PDF com os dados das queimadas por região. Primeiramente, criamos o objeto PDF utilizando a biblioteca FPDF, adicionamos uma nova página e definimos a fonte do documento. Em seguida, escrevemos o título centralizado na primeira linha do relatório. Depois disso, organizamos as ocorrências de queimadas por região utilizando um dicionário, onde a chave é a região e o valor é uma lista de dicionários com os dados de cada estado. Depois, calculamos o total de casos por região utilizando a função sum() dentro de um dicionário por compreensão. Na sequência, percorremos sobre cada região e seus dados para escrever as informações no PDF, destacando o nome da região e listando os estados com seus respectivos casos e níveis de impacto. Após isso, criamos um gráfico de barras com o total de casos por região usando a biblioteca matplotlib, salvamos a imagem e a adicionamos como uma nova página no PDF. Por fim, o relatório é salvo como “relatorio_queimadas.pdf”, exibimos uma mensagem ao usuário informando que o relatório foi gerado com sucesso, e removemos o gráfico do sistema para evitar arquivos temporários desnecessários.
 def gerar_relatorio_pdf():
@@ -180,6 +203,8 @@ def main():
         elif opcao == "5":
             gerar_relatorio_pdf()
         elif opcao == "6":
+            denunciar_ocorrencia()
+        elif opcao == "7":
             print("Até logo!")
             break
         else:
