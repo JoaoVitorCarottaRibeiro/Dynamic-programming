@@ -13,6 +13,13 @@ Como solução para reduzir as queimadas, nossa aplicação é projetada para qu
 
 Importante ressaltar que o foco da aplicação não cabe apenas as autoridades, mas sim a população como um todo! Qualquer cidadão poderá ter acesso e saber onde as queimadas estão acontecendo e se quiserem relatar uma nova ocorrência, poderão a vontade.
 
+Pré requisitos para a aplicação funcionar 100%:
+Ter as seguintes bibliotecas instaladas:
+
+- fpdf
+- matplotlib.pyplot
+- os
+
 Nela temos algumas funcionalidades como:
 
 1. Ver estados afetados pelas queimadas
