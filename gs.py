@@ -123,7 +123,7 @@ def atender_maior_prioridade():
     ocorrencia_prioritaria = max(queimadas, key=lambda x: prioridade.get(x["impacto"], 0))
     queimadas.remove(ocorrencia_prioritaria)
     print("\nOcorrência atendida:")
-    print(f"{ocorrencia_prioritaria['estado']} | Casos: {ocorrencia_prioritaria['casos']} | Impacto: {ocorrencia_prioritaria['impacto']} | Id: {ocorrencia_prioritaria['id']}")
+    print(f"{ocorrencia_prioritaria['estado']} | Casos: {ocorrencia_prioritaria['casos']} | Impacto: {ocorrencia_prioritaria['impacto']} | Id: {ocorrencia_prioritaria['Id']}")
 
 # Função que permite os usuários denunciarem ocorrências falsas, onde pegamos a ocorrência pelo seu respectivo Id e verificamos se ela realmente existe. Se ela existir e for considerada falsa ou enganosa, podemos utilizar essa função para denunciar e excluir.
 def denunciar_ocorrencia():
